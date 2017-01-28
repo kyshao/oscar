@@ -19,15 +19,26 @@ con.connect(function(err){
 con.query('show databases',function(err,rows){
   if(err) throw err;
 
+  //Async processing sucks
+  console.log('Please make sure that output.txt does not already exist before running this program');
+
+
   console.log('Data received from Db:\n');
   console.log(rows);
 
   //output to file
-var stream = fs.createWriteStream("output.txt");
+  //if the stream is declared outside the function it is not within scope
+  var stream = fs.createWriteStream("output.txt", {flags:'a'});
   stream.once('open', function(fd) {
-    stream.write(JSON.stringify(rows));
-    stream.write("\nEND\n");
+    stream.write(JSON.stringify(rows));//todo end with a newline
+    stream.write("END stream1\n");
     stream.end();
+  });
+  var stream2 = fs.createWriteStream("output.txt", {flags:'a'});
+  stream2.once('open', function(fd) {
+    stream2.write("placeholder for stream2 output\n");
+    stream2.write("END stream2\n");
+    stream2.end();
   });
 
   console.log('File output complete\n');

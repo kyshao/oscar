@@ -1,2 +1,3 @@
-[{"Database":"information_schema"},{"Database":"drugref"},{"Database":"mysql"},{"Database":"oscar15_bc"},{"Database":"oscar_test"},{"Database":"performance_schema"}]
-END
+[{"Database":"information_schema"},{"Database":"drugref"},{"Database":"mysql"},{"Database":"oscar15_bc"},{"Database":"oscar_test"},{"Database":"performance_schema"}]placeholder for stream2 output
+END stream1
+END stream2
