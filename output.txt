@@ -1,3 +1,8 @@
-[{"Database":"information_schema"},{"Database":"drugref"},{"Database":"mysql"},{"Database":"oscar15_bc"},{"Database":"oscar_test"},{"Database":"performance_schema"}]placeholder for stream2 output
+[{"Field":"id","Type":"int(9)","Null":"NO","Key":"PRI","Default":null,"Extra":"auto_increment"},{"Field":"name","Type":"varchar(255)","Null":"YES","Key":"","Default":null,"Extra":""},{"Field":"appType","Type":"varchar(255)","Null":"YES","Key":"","Default":null,"Extra":""},{"Field":"config","Type":"text","Null":"YES","Key":"","Default":null,"Extra":""},{"Field":"active","Type":"tinyint(1)","Null":"YES","Key":"","Default":null,"Extra":""},{"Field":"addedBy","Type":"varchar(8)","Null":"YES","Key":"","Default":null,"Extra":""},{"Field":"added","Type":"datetime","Null":"YES","Key":"","Default":null,"Extra":""}]
+placeholder for stream2 output
+END stream1
+END stream2
+[{"Field":"id","Type":"int(9)","Null":"NO","Key":"PRI","Default":null,"Extra":"auto_increment"},{"Field":"name","Type":"varchar(255)","Null":"YES","Key":"","Default":null,"Extra":""},{"Field":"appType","Type":"varchar(255)","Null":"YES","Key":"","Default":null,"Extra":""},{"Field":"config","Type":"text","Null":"YES","Key":"","Default":null,"Extra":""},{"Field":"active","Type":"tinyint(1)","Null":"YES","Key":"","Default":null,"Extra":""},{"Field":"addedBy","Type":"varchar(8)","Null":"YES","Key":"","Default":null,"Extra":""},{"Field":"added","Type":"datetime","Null":"YES","Key":"","Default":null,"Extra":""}]
+placeholder for stream2 output
 END stream1
 END stream2
