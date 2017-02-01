@@ -1,2 +1,0 @@
-run oscarstart
-node app.js (../node/bin/node app.js)

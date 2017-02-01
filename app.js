@@ -16,10 +16,12 @@ con.connect(function(err){
   console.log('Connection established');
 });
 
+//sql commands here
 queryDB(con, "SHOW DATABASES", "console");
-queryDB(con, "USE oscar15_bc", "console");
-var cols = queryDB(con, "SHOW COLUMNS FROM AppDefinition", "output.txt");
-console.log("cols"+JSON.stringify(cols));
+queryDB(con, "USE oscar15_bc");
+queryDB(con, "SELECT TABLE_NAME, COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS LIMIT 1000", "output.txt");
+//queryDB(con, "SHOW COLUMNS FROM AppDefinition", "output1.txt");
+
 
 con.end(function(err) {
   // The connection is terminated gracefully
@@ -32,39 +34,45 @@ con.end(function(err) {
 //=====================
 //functions here
 
+//@parameters
+//con -> a mysql connection object
+//command -> a mysql command, as a string
+//output -> "console", string filename, or empty for no output
 function queryDB(con, command, output){
-	var r;
+	
 	con.query(command,function(err,rows){
-	  if(err) throw err;
+		if(err) throw err;
 
-	  //Async processing sucks
-	  //console.log('Please make sure that output.txt does not already exist before running this program');
 
-	  if(output == "console"){
-		  console.log('Data received from Db:\n');
-		  console.log(rows);
-	  }
-	  else if(output != undefined){
+		if(output == "console"){
+			console.log('Data received from Db:\n');
+			console.log(rows);
+		}
+		else if(output != undefined){
+	
+			//output to file
+			//if the stream is declared outside the function it is not within scope
+			//{flags:'a'} in the 2nd parameter of the argument sets append mode
+			//please manually delete/clear the output file if you want to start with a blank file
+			var stream = fs.createWriteStream(output, {flags:'a'});
+			stream.once('open', function(fd) {
+				//warning: stream.write is an ASYNC method
+				stream.write(JSON.stringify(rows)/*	+'\n'	*/);
+				stream.write("END stream1\n");
+				stream.end();	
+			});
 
-		  //output to file
-		  //if the stream is declared outside the function it is not within scope
-		  var stream = fs.createWriteStream(output, {flags:'a'});
-		  stream.once('open', function(fd) {
-		    stream.write(JSON.stringify(rows)+'\n');
-		    stream.write("END stream1\n");
-		    stream.end();	
-		  });
-		  var stream2 = fs.createWriteStream(output, {flags:'a'});
-		  stream2.once('open', function(fd) {
-		    stream2.write("placeholder for stream2 output\n");
-		    stream2.write("END stream2\n");
-		    stream2.end();
-		  });
-	  console.log('File output complete\n');
-	}
-	r=rows;//todo this does not work
+/*			uncomment if multiple streams are needed
+			var stream2 = fs.createWriteStream(output, {flags:'a'});
+			stream2.once('open', function(fd) {
+				stream2.write("placeholder for stream2 output\n");
+				stream2.write("END stream2\n");
+				stream2.end();
+			});
+*/
+			console.log('File output complete to filename: '+output+'\n');
+		}
 	});
-	return r;
 }
 
 
